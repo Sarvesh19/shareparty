@@ -16,17 +16,17 @@ import com.shareparty.model.UserEntity;
 public interface PartyRepository extends JpaRepository<PartyEntity, Integer>{
 	
 	
-	@Query(value = "SELECT * FROM tbl_party u WHERE u.city = :city and u.party_date >= :startDate and u.party_date <= :endDate and u.user_id <> :currentUserID"  
+	@Query(value = "SELECT * FROM tbl_party u WHERE  u.party_date >= :startDate and u.party_date <= :endDate and u.user_id <> :currentUserID"  
 			+ "", 
 			  nativeQuery = true)
 	List<PartyEntity> findPartyNative(
-			  @Param("city") String city, @Param("startDate") String startDate,@Param("endDate") String endDate,@Param("currentUserID") int currentUserID);
+			   @Param("startDate") String startDate,@Param("endDate") String endDate,@Param("currentUserID") int currentUserID);
 	
-	@Query(value = "SELECT * FROM tbl_party u WHERE u.city = :city and u.party_date = :startDate and u.user_id <> :currentUserID"  
+	@Query(value = "SELECT * FROM tbl_party u WHERE u.party_date = :startDate and u.user_id <> :currentUserID"  
 			+ "", 
 			  nativeQuery = true)
 	List<PartyEntity> findPartyByOneDayNative(
-			  @Param("city") String city, @Param("startDate") String startDate,@Param("currentUserID") int currentUserID); 
+			  @Param("startDate") String startDate,@Param("currentUserID") int currentUserID); 
 	
-
+//@Param("city") String city,
 }

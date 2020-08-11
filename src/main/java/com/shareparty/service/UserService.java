@@ -189,10 +189,10 @@ public class UserService {
 
 		List<PartyEntity> partyEntityList = null;
 		if (start.equals(end) || (start != null && end == null)) {
-			partyEntityList = partyRepository.findPartyByOneDayNative(user.getUser_city(), start,user.getUser_id());
+			partyEntityList = partyRepository.findPartyByOneDayNative(start,user.getUser_id());
 
 		} else {
-			partyEntityList = partyRepository.findPartyNative(user.getUser_city(), start, end,user.getUser_id());
+			partyEntityList = partyRepository.findPartyNative( start, end,user.getUser_id());
 
 		}
 		List<PartyEntityDto> searchedPartyList = new ArrayList<>();
