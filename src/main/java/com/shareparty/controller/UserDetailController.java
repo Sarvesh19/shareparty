@@ -48,7 +48,8 @@ import com.shareparty.service.UserService;
 
 @RestController
 @RequestMapping("/")
-@CrossOrigin(origins = "https://shareparty-hmi.herokuapp.com")
+@CrossOrigin(origins = {"https://shareparty-hmi.herokuapp.com","http://localhost:4200"})
+
 public class UserDetailController {
 
 	@Autowired
