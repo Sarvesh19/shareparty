@@ -20,17 +20,26 @@ public class PartyRequestEntity {
 	private Boolean status;
 
 	@Column(name = "party_id")
-	private Long party_id;
+	private int party_id;
 
 	@Column(name = "user_id")
-	private Long user_id;
+	private int user_id;
+	
+	
+	@Column(name = "from_req_id")
+	private Integer from_req_id;
+	
+	@Column(name = "message")
+	private String message;
+	
+	
 
 	public PartyRequestEntity() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public PartyRequestEntity(Boolean status, Long party_id, Long user_id) {
+	public PartyRequestEntity(Boolean status, int party_id, int user_id) {
 		super();
 		this.status = status;
 		this.party_id = party_id;
@@ -53,20 +62,39 @@ public class PartyRequestEntity {
 		this.status = status;
 	}
 
-	public Long getParty_id() {
+	public int getParty_id() {
 		return party_id;
 	}
 
-	public void setParty_id(Long party_id) {
+	public void setParty_id(int party_id) {
 		this.party_id = party_id;
 	}
 
-	public Long getUser_id() {
+	public int getUser_id() {
 		return user_id;
 	}
 
-	public void setUser_id(Long user_id) {
+	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+	
+	
+	
+
+	public Integer getFrom_req_id() {
+		return from_req_id;
+	}
+
+	public void setFrom_req_id(Integer from_req_id) {
+		this.from_req_id = from_req_id;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 	@Override

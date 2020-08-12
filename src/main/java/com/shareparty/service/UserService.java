@@ -19,12 +19,15 @@ import com.shareparty.exception.EmailExistsException;
 import com.shareparty.exception.RecordNotFoundException;
 import com.shareparty.model.ForgotPassword;
 import com.shareparty.model.PartyEntity;
+import com.shareparty.model.PartyRequestEntity;
 import com.shareparty.model.UserEntity;
 import com.shareparty.model.UserNamePassword;
 import com.shareparty.repository.PartyRepository;
+import com.shareparty.repository.RequestPartyRepository;
 import com.shareparty.repository.UserRepository;
 import com.shareparty.response.dto.CreatePartyDto;
 import com.shareparty.response.dto.PartyEntityDto;
+import com.shareparty.response.dto.RequestPartyDto;
 import com.shareparty.response.dto.SearchPartyDto;
 import com.shareparty.security.AES;
 
@@ -39,6 +42,12 @@ public class UserService {
 
 	@Autowired
 	private PartyRepository partyRepository;
+	
+	
+	@Autowired
+	private RequestPartyRepository requestPartyRepository;
+	
+	
 
 	@Autowired
 	private AES aes;
@@ -215,7 +224,8 @@ public class UserService {
 				partyEntityDto.setPer_head(partyEntity.getPer_head());
 				partyEntityDto.setOrganizerContact(partyEntity.getUserEntity().getEmail());
 				partyEntityDto.setApproxDist(String.valueOf(distanceBtn));
-				
+				partyEntityDto.setParty_id(partyEntity.getParty_id());
+				partyEntityDto.setUser_id(partyEntity.getUser_id());
 				searchedPartyList.add(partyEntityDto);
 			}
 			
@@ -228,6 +238,37 @@ public class UserService {
 		return null;
 
 	}
+	
+	public boolean isRequested(RequestPartyDto requestPartyDto,UserEntity user) {
+		
+		Object partyEntity = requestPartyRepository.isRequestedNative(requestPartyDto.getFrom_req_id(),requestPartyDto.getParty_id());
+		
+		if(partyEntity == null) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
+	
+	
+	public PartyRequestEntity requestParty(RequestPartyDto requestPartyDto, UserEntity user) {
+		PartyRequestEntity partyRequestEntity = new PartyRequestEntity();
+		partyRequestEntity.setFrom_req_id(requestPartyDto.getFrom_req_id());
+		partyRequestEntity.setMessage(requestPartyDto.getMessage());
+		partyRequestEntity.setParty_id(requestPartyDto.getParty_id());
+		partyRequestEntity.setUser_id(requestPartyDto.getUser_id());
+		requestPartyRepository.save(partyRequestEntity);
+		
+		//Optional<PartyEntity> party =  partyRepository.findById(requestPartyDto.getParty_id());
+		
+		
+		return partyRequestEntity;
+		
+	}
+	
+	
 
 	public static double distance(double lat1, double lat2, double lon1, double lon2) {
 

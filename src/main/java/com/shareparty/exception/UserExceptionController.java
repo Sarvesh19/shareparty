@@ -11,4 +11,10 @@ public class UserExceptionController {
    public ResponseEntity<Object> exception(RecordNotFoundException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
    }
+   
+   
+   @ExceptionHandler(value = RequestAlreadySentException.class)
+   public ResponseEntity<Object> exception(RequestAlreadySentException exception) {
+      return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+   }
 }
